@@ -1,0 +1,30 @@
+name: SimpleItemEdit
+version: '1.0.0'
+main: com.takoy3466.simpleitemedit.SimpleItemEdit
+
+api-version: '1.21'
+
+author: takoyaki3466
+description: A simple and fun item customization plugin.
+
+commands:
+  simpleEdit:
+    description: Open the SimpleItemEdit menu.
+    usage: /simpleEdit
+    aliases:
+      - se
+    permission: simpleitemedit.use
+
+  SimpleAdminEdit:
+    description: SimpleItemEdit administrator command.
+    usage: /SimpleAdminEdit
+    permission: simpleitemedit.admin
+
+permissions:
+  simpleitemedit.use:
+    description: Allows the player to use SimpleItemEdit.
+    default: true
+
+  simpleitemedit.admin:
+    description: Allows administration of SimpleItemEdit.
+    default: op

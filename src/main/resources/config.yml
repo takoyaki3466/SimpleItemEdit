@@ -1,0 +1,14 @@
+# SimpleItemEdit configuration
+
+# Item Model editor custom completion IDs.
+#
+# Vanilla item model IDs are automatically registered.
+# Add custom resource-pack item models here.
+#
+# Example:
+# item-models:
+#   - "mymod:item/test_sword"
+#   - "mymod:item/ruby"
+#   - "mymod:item/magic_staff"
+
+item-models: []
