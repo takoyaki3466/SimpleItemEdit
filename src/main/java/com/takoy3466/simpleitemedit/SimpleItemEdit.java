@@ -82,6 +82,9 @@ public final class SimpleItemEdit extends JavaPlugin {
 
         editorRegistry.register(new ItemModelEditor());
         editorGuiRegistry.register(new ItemModelGuiFactory(context));
+
+        editorRegistry.register(new EnchantmentEditor());
+        editorGuiRegistry.register(new EnchantmentGuiFactory(context));
     }
 
     private void registerListeners() {
@@ -93,6 +96,7 @@ public final class SimpleItemEdit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new StyleGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new EquipmentSlotGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new ItemModelGuiListener(context), this);
+        getServer().getPluginManager().registerEvents(new EnchantmentGuiListener(context), this);
 
         getServer().getPluginManager().registerEvents(chatInputHandler, this);
         getServer().getPluginManager().registerEvents(new EditSessionListener(sessionManager, chatInputHandler), this);
