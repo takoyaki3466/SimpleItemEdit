@@ -4,10 +4,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class EditingSession {
+
     private final Player player;
     private final int sourceSlot;
     private final ItemStack originalItem;
+
     private ItemStack editingItem;
+
+    private final EnchantEditState enchantmentState = new EnchantEditState();
 
     public EditingSession(Player player, int sourceSlot, ItemStack originalItem) {
         this.player = player;
@@ -34,6 +38,10 @@ public class EditingSession {
 
     public void setEditingItem(ItemStack item) {
         this.editingItem = item.clone();
+    }
+
+    public EnchantEditState enchantmentState() {
+        return enchantmentState;
     }
 
     public void reset() {

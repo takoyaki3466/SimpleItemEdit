@@ -73,6 +73,7 @@ public class MainEditListener implements Listener {
 
     private void apply(Player player, MainEditHolder holder) {
         holder.session().apply();
+        holder.session().enchantmentState().returnAllItems(player);
         sessionManager.remove(player);
         player.closeInventory();
     }

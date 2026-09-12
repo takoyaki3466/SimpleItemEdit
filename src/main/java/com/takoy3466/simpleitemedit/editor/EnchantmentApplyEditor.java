@@ -11,11 +11,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Map;
 
-public class EnchantmentEditor implements IItemEditor {
+public class EnchantmentApplyEditor implements IItemEditor {
 
     @Override
     public String id() {
-        return "enchantment";
+        return "enchantment_apply";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class EnchantmentEditor implements IItemEditor {
         ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
         ItemMeta meta = item.getItemMeta();
 
-        meta.displayName(Component.text("Enchantment"));
+        meta.displayName(Component.text("Apply Enchantment"));
         item.setItemMeta(meta);
 
         return item;

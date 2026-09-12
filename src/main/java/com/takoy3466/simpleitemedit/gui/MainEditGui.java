@@ -41,7 +41,11 @@ public class MainEditGui implements IGui {
         setEditor(holder, inventory, 31, "glow");
         setEditor(holder, inventory, 32, "equipment_slot");
         setEditor(holder, inventory, 33, "item_model");
-        setEditor(holder, inventory, 34, "enchantment");
+
+        setEditor(holder, inventory, 34, "enchantment_apply");
+
+        setEditor(holder, inventory, 37, "rgb_color");
+        setEditor(holder, inventory, 43, "enchantment_merge");
 
         inventory.setItem(45, createButton(Material.LIME_DYE, "Apply"));
         inventory.setItem(49, createButton(Material.RED_DYE, "Reset"));
