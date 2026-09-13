@@ -7,16 +7,10 @@ import com.takoy3466.simpleitemedit.gui.IGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class GlowGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
+public class GlowGuiFactory extends AbstractGuiFactory {
 
     public GlowGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "glow";
+        super(context, "glow");
     }
 
     @Override

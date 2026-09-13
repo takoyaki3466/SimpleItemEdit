@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.StyleGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class StyleGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class StyleGuiFactory extends AbstractGuiFactory {
     public StyleGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "style";
+        super(context, "style");
     }
 
     @Override

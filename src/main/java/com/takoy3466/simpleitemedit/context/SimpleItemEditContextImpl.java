@@ -5,6 +5,7 @@ import com.takoy3466.simpleitemedit.editor.EditorRegistry;
 import com.takoy3466.simpleitemedit.input.IInputHandler;
 import com.takoy3466.simpleitemedit.itemmodel.ItemModelRegistry;
 import com.takoy3466.simpleitemedit.session.EditingSessionManager;
+import com.takoy3466.simpleitemedit.util.EnchantLimitManager;
 import org.bukkit.plugin.Plugin;
 
 public class SimpleItemEditContextImpl implements SimpleItemEditContext {
@@ -15,14 +16,16 @@ public class SimpleItemEditContextImpl implements SimpleItemEditContext {
     private final EditingSessionManager sessions;
     private final IInputHandler inputHandler;
     private final ItemModelRegistry itemModelRegistry;
+    private final EnchantLimitManager limitManager;
 
-    public SimpleItemEditContextImpl(Plugin plugin, EditorRegistry editors, EditorGuiRegistry guiRegistry, EditingSessionManager sessions, IInputHandler inputHandler, ItemModelRegistry itemModelRegistry) {
+    public SimpleItemEditContextImpl(Plugin plugin, EditorRegistry editors, EditorGuiRegistry guiRegistry, EditingSessionManager sessions, IInputHandler inputHandler, ItemModelRegistry itemModelRegistry, EnchantLimitManager limitManager) {
         this.plugin = plugin;
         this.editors = editors;
         this.guiRegistry = guiRegistry;
         this.sessions = sessions;
         this.inputHandler = inputHandler;
         this.itemModelRegistry = itemModelRegistry;
+        this.limitManager = limitManager;
     }
 
     @Override
@@ -53,5 +56,10 @@ public class SimpleItemEditContextImpl implements SimpleItemEditContext {
     @Override
     public ItemModelRegistry itemModelRegistry() {
         return itemModelRegistry;
+    }
+
+    @Override
+    public EnchantLimitManager limitManager() {
+        return limitManager;
     }
 }

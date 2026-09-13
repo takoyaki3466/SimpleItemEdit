@@ -1,6 +1,7 @@
 package com.takoy3466.simpleitemedit.editor;
 
 import com.takoy3466.simpleitemedit.context.IEditContext;
+import com.takoy3466.simpleitemedit.util.EditorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
@@ -22,12 +23,7 @@ public class EquipmentSlotEditor implements IItemEditor {
 
     @Override
     public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.ARMOR_STAND);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("Equipment Slot"));
-        item.setItemMeta(meta);
-
-        return item;
+        return EditorUtil.createIcon(Material.ARMOR_STAND, "Equipment Slot");
     }
 
     public void setSlot(IEditContext context, EquipmentSlot slot) {

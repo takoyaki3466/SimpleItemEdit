@@ -7,27 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class StyleEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "style";
+public class StyleEditor extends AbstractItemEditor {
+    public StyleEditor() {
+        super("style", Material.WRITABLE_BOOK, "Style");
     }
 
-    @Override
-    public Component displayName() {
-        return Component.text("Style");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("Style"));
-        item.setItemMeta(meta);
-
-        return item;
-    }
 
     public void setStyle(IEditContext context, TextDecoration decoration, boolean enabled) {
         ItemStack item = context.session().editingItem();

@@ -19,7 +19,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class EnchantmentMergeGuiListener implements Listener {
-
     private final SimpleItemEditContext context;
 
     public EnchantmentMergeGuiListener(SimpleItemEditContext context) {
@@ -52,12 +51,12 @@ public class EnchantmentMergeGuiListener implements Listener {
         switch (rawSlot) {
             case EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT -> {
                 handleBookSlot(event, player, EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT);
-                updateResult(event.getView().getTopInventory());
+                event.getView().getTopInventory().setItem(EnchantmentMergeGuiHolder.RESULT_SLOT, null);
                 saveState(event.getView().getTopInventory(), session);
             }
             case EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT -> {
                 handleBookSlot(event, player, EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT);
-                updateResult(event.getView().getTopInventory());
+                event.getView().getTopInventory().setItem(EnchantmentMergeGuiHolder.RESULT_SLOT, null);
                 saveState(event.getView().getTopInventory(), session);
             }
             case EnchantmentMergeGuiHolder.RESULT_SLOT -> takeResult(event, player, session);
@@ -125,14 +124,6 @@ public class EnchantmentMergeGuiListener implements Listener {
         }
     }
 
-    private void updateResult(Inventory inventory) {
-        ItemStack first = inventory.getItem(EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT);
-        ItemStack second = inventory.getItem(EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT);
-
-        ItemStack result = EnchantBookMergeUtil.merge(first, second);
-        inventory.setItem(EnchantmentMergeGuiHolder.RESULT_SLOT, result);
-    }
-
     private void merge(Player player, EditingSession session) {
         EnchantmentMergeGuiHolder holder = getHolder(player);
 
@@ -145,7 +136,7 @@ public class EnchantmentMergeGuiListener implements Listener {
         ItemStack first = inventory.getItem(EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT);
         ItemStack second = inventory.getItem(EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT);
 
-        ItemStack result = EnchantBookMergeUtil.merge(first, second);
+        ItemStack result = EnchantBookMergeUtil.merge(first, second, context.limitManager());
 
         if (result == null) {
             player.sendMessage(Component.text("この2冊は合成できません。"));

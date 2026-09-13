@@ -7,26 +7,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class ColorEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "color";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Color");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.PAINTING);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("Color"));
-        item.setItemMeta(meta);
-
-        return item;
+public class ColorEditor extends AbstractItemEditor {
+    public ColorEditor() {
+        super("color", Material.PAINTING, "Color");
     }
 
     public void setColor(IEditContext context, TextColor color) {

@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.NameGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class NameGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class NameGuiFactory extends AbstractGuiFactory {
     public NameGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "name";
+        super(context, "name");
     }
 
     @Override

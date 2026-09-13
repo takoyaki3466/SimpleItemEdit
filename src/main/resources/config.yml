@@ -12,3 +12,53 @@
 #   - "mymod:item/magic_staff"
 
 item-models: []
+
+# -1なら上限なし
+enchantment-limits:
+  aqua_affinity: 10
+  bane_of_arthropods: 10
+  blast_protection: -1
+  breach: 6
+  channeling: -1
+  density: 7
+  depth_strider: -1
+  efficiency: 10
+  feather_falling: 10
+  fire_aspect: 10
+  fire_protection: 10
+  flame: -1
+  fortune: 5
+  frost_walker: 5
+  impaling: -1
+  infinity: -1
+  knockback: 5
+  looting: 5
+  loyalty: -1
+  luck_of_the_sea: 10
+  lure: 10
+  mending: -1
+  multishot: 5
+  piercing: -1
+  power: 10
+  projectile_protection: 10
+  protection: 10
+  punch: 5
+  quick_charge: 4
+  respiration: 6
+  riptide: 5
+  sharpness: 10
+  silk_touch: -1
+  smite: 10
+  soul_speed: 6
+  sweeping_edge: 10
+  swift_sneak: -1
+  thorns: -1
+
+  unbreaking:
+    armor: -1
+    crossbow: 5
+    trident: 8
+    other: 10
+
+  wind_burst: 7
+  lunge: 10

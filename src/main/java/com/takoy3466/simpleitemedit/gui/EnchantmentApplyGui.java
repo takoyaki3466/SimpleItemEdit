@@ -3,44 +3,37 @@ package com.takoy3466.simpleitemedit.gui;
 import com.takoy3466.simpleitemedit.context.SimpleItemEditContext;
 import com.takoy3466.simpleitemedit.holder.EnchantmentApplyGuiHolder;
 import com.takoy3466.simpleitemedit.session.EditingSession;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
+import com.takoy3466.simpleitemedit.util.GuiUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public class EnchantmentApplyGui implements IGui {
-    private final SimpleItemEditContext context;
-    private final EditingSession session;
-
+public class EnchantmentApplyGui extends AbstractGui {
     public EnchantmentApplyGui(SimpleItemEditContext context, EditingSession session) {
-        this.context = context;
-        this.session = session;
+        super(context, session);
     }
 
     @Override
     public void open(Player player) {
-        EnchantmentApplyGuiHolder holder = new EnchantmentApplyGuiHolder(session, context.editors());
-        Inventory inventory = Bukkit.createInventory(holder, 54, Component.text("Apply Enchantment"));
-        holder.setInventory(inventory);
-        setup(inventory);
-        player.openInventory(inventory);
+        Inventory inv = GuiUtil.holderSet(new EnchantmentApplyGuiHolder(session, context.editors()), 54, "Apply Enchantment");
+        setup(inv);
+        player.openInventory(inv);
     }
 
-    private void setup(Inventory inventory) {
-        inventory.setItem(EnchantmentApplyGuiHolder.TARGET_SLOT, session.editingItem());
-        inventory.setItem(EnchantmentApplyGuiHolder.BOOK_SLOT, session.enchantmentState().applyBook());
-        setGlass(inventory, 28, 30);
+    @Override
+    protected void setup(Inventory inv) {
+        inv.setItem(EnchantmentApplyGuiHolder.TARGET_SLOT, session.editingItem());
+        inv.setItem(EnchantmentApplyGuiHolder.BOOK_SLOT, session.enchantmentState().applyBook());
+        setGlass(inv, 28, 30);
 
-        inventory.setItem(EnchantmentApplyGuiHolder.APPLY_BUTTON_SLOT, button(Material.ANVIL, "Apply Enchantment"));
-        inventory.setItem(EnchantmentApplyGuiHolder.RESET_SLOT, button(Material.RED_DYE, "Reset Enchantments"));
-        inventory.setItem(EnchantmentApplyGuiHolder.BACK_SLOT, button(Material.ARROW, "Back"));
+        inv.setItem(EnchantmentApplyGuiHolder.APPLY_BUTTON_SLOT, GuiUtil.button(Material.ANVIL, "Apply Enchantment"));
+        inv.setItem(EnchantmentApplyGuiHolder.RESET_SLOT, GuiUtil.button(Material.RED_DYE, "Reset Enchantments"));
+        inv.setItem(EnchantmentApplyGuiHolder.BACK_SLOT, GuiUtil.button(Material.ARROW, "Back"));
     }
 
     private void setGlass(Inventory inventory, int start, int end) {
-        ItemStack glass = button(Material.GRAY_STAINED_GLASS_PANE, " ");
+        ItemStack glass = GuiUtil.button(Material.RED_STAINED_GLASS_PANE, " ");
 
         for (int slot = start; slot <= end; slot++) {
             if (slot == EnchantmentApplyGuiHolder.BOOK_SLOT) {
@@ -49,15 +42,5 @@ public class EnchantmentApplyGui implements IGui {
 
             inventory.setItem(slot, glass);
         }
-    }
-
-    private ItemStack button(Material material, String name) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text(name));
-        item.setItemMeta(meta);
-
-        return item;
     }
 }

@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.IGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class ColorGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class ColorGuiFactory extends AbstractGuiFactory {
     public ColorGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "color";
+        super(context, "color");
     }
 
     @Override

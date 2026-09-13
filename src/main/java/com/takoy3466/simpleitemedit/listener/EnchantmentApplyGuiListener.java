@@ -53,7 +53,10 @@ public class EnchantmentApplyGuiListener implements Listener {
         EditingSession session = holder.session();
 
         switch (rawSlot) {
-            case EnchantmentApplyGuiHolder.BOOK_SLOT -> handleBookSlot(event, player, session);
+            case EnchantmentApplyGuiHolder.BOOK_SLOT -> {
+                handleBookSlot(event, player, session);
+                saveState(event.getView().getTopInventory(), session);
+            }
             case EnchantmentApplyGuiHolder.APPLY_BUTTON_SLOT -> applyEnchantment(player, session);
             case EnchantmentApplyGuiHolder.RESET_SLOT -> reset(player, session);
 
@@ -165,6 +168,11 @@ public class EnchantmentApplyGuiListener implements Listener {
         }
 
         int newLevel = EnchantmentUtil.calculateNewLevel(currentLevel, bookLevel);
+
+        if (!context.limitManager().isAllowed(editing, enchantment, newLevel)) {
+            player.sendMessage(Component.text("このエンチャントはレベル " + context.limitManager().getLimit(editing, enchantment) + " までです。"));
+            return;
+        }
 
         EnchantmentUtil.apply(editing, enchantment, newLevel);
         session.setEditingItem(editing);

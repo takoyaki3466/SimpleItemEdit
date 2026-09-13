@@ -1,33 +1,14 @@
 package com.takoy3466.simpleitemedit.editor;
 
 import com.takoy3466.simpleitemedit.context.IEditContext;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class ItemModelEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "item_model";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Item Model");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.ITEM_FRAME);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text("Item Model"));
-        item.setItemMeta(meta);
-
-        return item;
+public class ItemModelEditor extends AbstractItemEditor {
+    public ItemModelEditor() {
+        super("item_model", Material.ITEM_FRAME, "Item Model");
     }
 
     public void setItemModel(IEditContext context, NamespacedKey itemModel) {

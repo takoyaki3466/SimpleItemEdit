@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.IGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class EnchantmentApplyGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class EnchantmentApplyGuiFactory extends AbstractGuiFactory {
     public EnchantmentApplyGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "enchantment_apply";
+        super(context, "enchantment_apply");
     }
 
     @Override

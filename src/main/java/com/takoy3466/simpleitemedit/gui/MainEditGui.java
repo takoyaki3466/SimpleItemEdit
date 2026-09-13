@@ -4,13 +4,12 @@ import com.takoy3466.simpleitemedit.editor.EditorRegistry;
 import com.takoy3466.simpleitemedit.editor.IItemEditor;
 import com.takoy3466.simpleitemedit.holder.MainEditHolder;
 import com.takoy3466.simpleitemedit.session.EditingSession;
+import com.takoy3466.simpleitemedit.util.GuiUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class MainEditGui implements IGui {
 
@@ -47,9 +46,9 @@ public class MainEditGui implements IGui {
         setEditor(holder, inventory, 37, "rgb_color");
         setEditor(holder, inventory, 43, "enchantment_merge");
 
-        inventory.setItem(45, createButton(Material.LIME_DYE, "Apply"));
-        inventory.setItem(49, createButton(Material.RED_DYE, "Reset"));
-        inventory.setItem(53, createButton(Material.BARRIER, "Close"));
+        inventory.setItem(45, GuiUtil.button(Material.LIME_DYE, "Apply"));
+        inventory.setItem(49, GuiUtil.button(Material.RED_DYE, "Reset"));
+        inventory.setItem(53, GuiUtil.button(Material.BARRIER, "Close"));
     }
 
     private void setEditor(MainEditHolder holder, Inventory inventory, int slot, String editorId) {
@@ -61,15 +60,5 @@ public class MainEditGui implements IGui {
 
         inventory.setItem(slot, editor.createIcon());
         holder.registerEditor(slot, editor);
-    }
-
-    private ItemStack createButton(Material material, String name) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text(name));
-        item.setItemMeta(meta);
-
-        return item;
     }
 }

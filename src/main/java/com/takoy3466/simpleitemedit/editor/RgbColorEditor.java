@@ -7,27 +7,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class RgbColorEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "rgb_color";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("RGB Color");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.LEATHER);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text("RGB Color").color(TextColor.color(255, 0, 0)));
-        item.setItemMeta(meta);
-
-        return item;
+public class RgbColorEditor extends AbstractItemEditor {
+    public RgbColorEditor() {
+        super("rgb_color", Material.LEATHER, Component.text("RGB Color").color(TextColor.color(255, 0, 0)));
     }
 
     public void setColor(IEditContext context, int red, int green, int blue) {

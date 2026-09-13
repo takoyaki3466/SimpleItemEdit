@@ -8,22 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainEditHolder extends AbstractGuiHolder {
-    private final EditingSession session;
-    private final EditorRegistry editors;
-
     private final Map<Integer, IItemEditor> slotEditors = new HashMap<>();
 
     public MainEditHolder(EditingSession session, EditorRegistry editors) {
-        this.session = session;
-        this.editors = editors;
-    }
-
-    public EditingSession session() {
-        return session;
-    }
-
-    public EditorRegistry editors() {
-        return editors;
+        super(session, editors);
     }
 
     public void registerEditor(int slot, IItemEditor editor) {

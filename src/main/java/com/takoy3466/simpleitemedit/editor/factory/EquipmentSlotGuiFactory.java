@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.IGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class EquipmentSlotGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class EquipmentSlotGuiFactory extends AbstractGuiFactory {
     public EquipmentSlotGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "equipment_slot";
+        super(context, "equipment_slot");
     }
 
     @Override

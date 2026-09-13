@@ -3,47 +3,39 @@ package com.takoy3466.simpleitemedit.gui;
 import com.takoy3466.simpleitemedit.context.SimpleItemEditContext;
 import com.takoy3466.simpleitemedit.holder.EnchantmentMergeGuiHolder;
 import com.takoy3466.simpleitemedit.session.EditingSession;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
+import com.takoy3466.simpleitemedit.util.GuiUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public class EnchantmentMergeGui implements IGui {
-
-    private final SimpleItemEditContext context;
-    private final EditingSession session;
-
+public class EnchantmentMergeGui extends AbstractGui {
     public EnchantmentMergeGui(SimpleItemEditContext context, EditingSession session) {
-        this.context = context;
-        this.session = session;
+        super(context, session);
     }
 
     @Override
     public void open(Player player) {
-        EnchantmentMergeGuiHolder holder = new EnchantmentMergeGuiHolder(session, context.editors());
-        Inventory inventory = Bukkit.createInventory(holder, 54, Component.text("Combine Enchantment Books"));
-        holder.setInventory(inventory);
-        setup(inventory);
-        player.openInventory(inventory);
+        Inventory inv = GuiUtil.holderSet(new EnchantmentMergeGuiHolder(session, context.editors()), 54, "Combine Enchantment Books");
+        setup(inv);
+        player.openInventory(inv);
     }
 
-    private void setup(Inventory inventory) {
-        inventory.setItem(EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT, session.enchantmentState().mergeFirst());
-        inventory.setItem(EnchantmentMergeGuiHolder.RESULT_SLOT, session.enchantmentState().mergeResult());
-        inventory.setItem(EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT, session.enchantmentState().mergeSecond());
+    @Override
+    protected void setup(Inventory inv) {
+        inv.setItem(EnchantmentMergeGuiHolder.FIRST_BOOK_SLOT, session.enchantmentState().mergeFirst());
+        inv.setItem(EnchantmentMergeGuiHolder.RESULT_SLOT, session.enchantmentState().mergeResult());
+        inv.setItem(EnchantmentMergeGuiHolder.SECOND_BOOK_SLOT, session.enchantmentState().mergeSecond());
 
-        setGlass(inventory, 28, 30);
-        setGlass(inventory, 32, 34);
+        setGlass(inv, 28, 30);
+        setGlass(inv, 32, 34);
 
-        inventory.setItem(EnchantmentMergeGuiHolder.MERGE_BUTTON_SLOT, button(Material.ANVIL, "Combine Books"));
-        inventory.setItem(EnchantmentMergeGuiHolder.BACK_SLOT, button(Material.ARROW, "Back"));
+        inv.setItem(EnchantmentMergeGuiHolder.MERGE_BUTTON_SLOT, GuiUtil.button(Material.ANVIL, "Combine Books"));
+        inv.setItem(EnchantmentMergeGuiHolder.BACK_SLOT, GuiUtil.button(Material.ARROW, "Back"));
     }
 
     private void setGlass(Inventory inventory, int start, int end) {
-        ItemStack glass = button(Material.GRAY_STAINED_GLASS_PANE, " ");
+        ItemStack glass = GuiUtil.button(Material.RED_STAINED_GLASS_PANE, " ");
 
         for (int slot = start; slot <= end; slot++) {
 
@@ -53,15 +45,5 @@ public class EnchantmentMergeGui implements IGui {
 
             inventory.setItem(slot, glass);
         }
-    }
-
-    private ItemStack button(Material material, String name) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text(name));
-        item.setItemMeta(meta);
-
-        return item;
     }
 }

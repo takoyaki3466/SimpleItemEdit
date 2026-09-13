@@ -11,10 +11,14 @@ import com.takoy3466.simpleitemedit.itemmodel.ItemModelRegistry;
 import com.takoy3466.simpleitemedit.listener.*;
 import com.takoy3466.simpleitemedit.session.EditSessionListener;
 import com.takoy3466.simpleitemedit.session.EditingSessionManager;
+import com.takoy3466.simpleitemedit.util.EnchantLimitManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class SimpleItemEdit extends JavaPlugin {
 
+    private static final Logger log = LoggerFactory.getLogger(SimpleItemEdit.class);
     private static SimpleItemEdit instance;
 
     private EditorRegistry editorRegistry;
@@ -24,13 +28,14 @@ public final class SimpleItemEdit extends JavaPlugin {
 
     private SimpleItemEditContext context;
     private ItemModelRegistry itemModelRegistry;
+    private EnchantLimitManager limitManager;
 
     @Override
     public void onEnable() {
-
         instance = this;
 
         initialize();
+
         registerEditors();
         registerListeners();
         registerCommands();
@@ -57,7 +62,9 @@ public final class SimpleItemEdit extends JavaPlugin {
         itemModelRegistry.registerVanillaModels();
         itemModelRegistry.loadConfig(this);
 
-        context = new SimpleItemEditContextImpl(this, editorRegistry, editorGuiRegistry, sessionManager, chatInputHandler, itemModelRegistry);
+        limitManager = new EnchantLimitManager(this);
+
+        context = new SimpleItemEditContextImpl(this, editorRegistry, editorGuiRegistry, sessionManager, chatInputHandler, itemModelRegistry, limitManager);
 
     }
 
@@ -103,6 +110,8 @@ public final class SimpleItemEdit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EquipmentSlotGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new ItemModelGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new RgbColorGuiListener(context), this);
+        getServer().getPluginManager().registerEvents(new EnchantmentApplyGuiListener(context), this);
+        getServer().getPluginManager().registerEvents(new EnchantmentMergeGuiListener(context), this);
 
         getServer().getPluginManager().registerEvents(chatInputHandler, this);
         getServer().getPluginManager().registerEvents(new EditSessionListener(sessionManager, chatInputHandler), this);

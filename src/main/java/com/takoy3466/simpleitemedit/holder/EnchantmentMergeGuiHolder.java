@@ -11,19 +11,7 @@ public class EnchantmentMergeGuiHolder extends AbstractGuiHolder {
     public static final int MERGE_BUTTON_SLOT = 40;
     public static final int BACK_SLOT = 49;
 
-    private final EditingSession session;
-    private final EditorRegistry editors;
-
     public EnchantmentMergeGuiHolder(EditingSession session, EditorRegistry editors) {
-        this.session = session;
-        this.editors = editors;
-    }
-
-    public EditingSession session() {
-        return session;
-    }
-
-    public EditorRegistry editors() {
-        return editors;
+        super(session, editors);
     }
 }

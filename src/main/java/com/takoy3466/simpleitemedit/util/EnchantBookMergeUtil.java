@@ -34,14 +34,20 @@ public final class EnchantBookMergeUtil {
         return firstLevel < Integer.MAX_VALUE;
     }
 
-    public static ItemStack merge(ItemStack first, ItemStack second) {
+    public static ItemStack merge(ItemStack first, ItemStack second, EnchantLimitManager limitManager) {
         if (!canMerge(first, second)) {
             return null;
         }
 
         Enchantment enchantment = EnchantBookUtil.getSingleEnchantment(first);
-        int level = EnchantBookUtil.getSingleLevel(first);
 
-        return EnchantBookUtil.createBook(enchantment, level + 1);
+        int level = EnchantBookUtil.getSingleLevel(first);
+        int newLevel = level + 1;
+
+        if (!limitManager.isAllowed(first, enchantment, newLevel)) {
+            return null;
+        }
+
+        return EnchantBookUtil.createBook(enchantment, newLevel);
     }
 }

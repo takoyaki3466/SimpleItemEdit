@@ -7,16 +7,9 @@ import com.takoy3466.simpleitemedit.gui.RarityGui;
 import com.takoy3466.simpleitemedit.session.EditingSession;
 import org.bukkit.entity.Player;
 
-public class RarityGuiFactory implements IEditorGuiFactory {
-    private final SimpleItemEditContext context;
-
+public class RarityGuiFactory extends AbstractGuiFactory {
     public RarityGuiFactory(SimpleItemEditContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public String editorId() {
-        return "rarity";
+        super(context, "rarity");
     }
 
     @Override

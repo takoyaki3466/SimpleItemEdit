@@ -1,32 +1,14 @@
 package com.takoy3466.simpleitemedit.editor;
 
 import com.takoy3466.simpleitemedit.context.IEditContext;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemRarity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class RarityEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "rarity";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Rarity");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.DIAMOND);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("Rarity"));
-        item.setItemMeta(meta);
-
-        return item;
+public class RarityEditor extends AbstractItemEditor {
+    public RarityEditor() {
+        super("rarity", Material.DIAMOND, "Rarity");
     }
 
     @Override

@@ -6,26 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class NameEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "name";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Name");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        ItemStack item = new ItemStack(Material.NAME_TAG);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("Name"));
-        item.setItemMeta(meta);
-
-        return item;
+public class NameEditor extends AbstractItemEditor {
+    public NameEditor() {
+        super("name", Material.NAME_TAG, "Name");
     }
 
     @Override

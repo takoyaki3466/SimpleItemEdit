@@ -29,11 +29,11 @@ public class StyleGui implements IGui {
         StyleGuiHolder holder = new StyleGuiHolder(session, context.editors());
         Inventory inventory = Bukkit.createInventory(holder, 27, Component.text("Edit Style"));
         holder.setInventory(inventory);
-        setup(player, inventory, holder);
+        setup(player, inventory);
         player.openInventory(inventory);
     }
 
-    private void setup(Player player, Inventory inventory, StyleGuiHolder holder) {
+    private void setup(Player player, Inventory inventory) {
         inventory.setItem(13, session.editingItem());
         StyleEditor editor = getEditor();
 
