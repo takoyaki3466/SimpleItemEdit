@@ -6,6 +6,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,5 +159,25 @@ public class EnchantLimitManager {
         }
 
         return Math.min(level, limit);
+    }
+
+    public Map<Enchantment, Integer> getLimits() {
+        return Collections.unmodifiableMap(limits);
+    }
+
+    public int getUnbreakingArmorLimit() {
+        return unbreakingArmorLimit;
+    }
+
+    public int getUnbreakingCrossbowLimit() {
+        return unbreakingCrossbowLimit;
+    }
+
+    public int getUnbreakingTridentLimit() {
+        return unbreakingTridentLimit;
+    }
+
+    public int getUnbreakingOtherLimit() {
+        return unbreakingOtherLimit;
     }
 }

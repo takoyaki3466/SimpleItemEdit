@@ -1,29 +1,25 @@
 package com.takoy3466.simpleitemedit.listener;
 
-import com.takoy3466.simpleitemedit.context.GuiEditContext;
 import com.takoy3466.simpleitemedit.context.IEditContext;
 import com.takoy3466.simpleitemedit.context.SimpleItemEditContext;
-import com.takoy3466.simpleitemedit.editor.IItemEditor;
 import com.takoy3466.simpleitemedit.editor.ItemModelEditor;
-import com.takoy3466.simpleitemedit.gui.ItemModelGui;
 import com.takoy3466.simpleitemedit.gui.MainEditGui;
 import com.takoy3466.simpleitemedit.holder.ItemModelGuiHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jspecify.annotations.NonNull;
 
-public class ItemModelGuiListener implements Listener {
-    private final SimpleItemEditContext context;
-
+public class ItemModelGuiListener extends AbstractListener<ItemModelGuiHolder, ItemModelEditor> {
     public ItemModelGuiListener(SimpleItemEditContext context) {
-        this.context = context;
+        super(context, "item_model");
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
+    @Override
+    protected void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
@@ -39,26 +35,15 @@ public class ItemModelGuiListener implements Listener {
             return;
         }
 
-        IItemEditor editor = context.editors().get("item_model");
-
-        if (!(editor instanceof ItemModelEditor modelEditor)) {
+        if (!(getEditor() instanceof ItemModelEditor modelEditor)) {
             return;
         }
 
-        if (slot == 11) {
-            startInput(player, holder, modelEditor);
-            return;
-        }
-
-        if (slot == 15) {
-            IEditContext editorContext = createContext(player, holder);
-            modelEditor.reset(editorContext);
-            return;
-        }
-
-        if (slot == 22) {
-            context.inputHandler().cancel(player);
-            new MainEditGui(holder.session(), context.editors()).open(player);
+        switch (slot) {
+            case 11 -> startInput(player, holder, modelEditor);
+            case 15 -> reset(player, holder, modelEditor);
+            case 22 -> back(player, holder, modelEditor);
+            default -> {}
         }
     }
 
@@ -82,9 +67,15 @@ public class ItemModelGuiListener implements Listener {
                 });
     }
 
-    private IEditContext createContext(Player player, ItemModelGuiHolder holder) {
-        return new GuiEditContext(player, holder.session(), context.editors(),
-                () -> new ItemModelGui(context, holder.session()),
-                () -> new MainEditGui(holder.session(), context.editors()));
+    @Override
+    protected void reset(@NonNull Player player, @NonNull ItemModelGuiHolder holder, @NonNull ItemModelEditor editor) {
+        IEditContext editorContext = createContext(player, holder);
+        editor.reset(editorContext);
+    }
+
+    @Override
+    protected void back(@NonNull Player player, @NonNull ItemModelGuiHolder holder, @NonNull ItemModelEditor editor) {
+        context.inputHandler().cancel(player);
+        new MainEditGui(holder.session(), context.editors()).open(player);
     }
 }

@@ -4,6 +4,7 @@ import com.takoy3466.simpleitemedit.editor.EditorGuiRegistry;
 import com.takoy3466.simpleitemedit.editor.EditorRegistry;
 import com.takoy3466.simpleitemedit.input.IInputHandler;
 import com.takoy3466.simpleitemedit.itemmodel.ItemModelRegistry;
+import com.takoy3466.simpleitemedit.language.LanguageManager;
 import com.takoy3466.simpleitemedit.session.EditingSessionManager;
 import com.takoy3466.simpleitemedit.util.EnchantLimitManager;
 import org.bukkit.plugin.Plugin;
@@ -23,4 +24,6 @@ public interface SimpleItemEditContext {
     ItemModelRegistry itemModelRegistry();
 
     EnchantLimitManager limitManager();
+
+    LanguageManager language();
 }

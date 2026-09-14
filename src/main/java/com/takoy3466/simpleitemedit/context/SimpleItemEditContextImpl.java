@@ -4,6 +4,7 @@ import com.takoy3466.simpleitemedit.editor.EditorGuiRegistry;
 import com.takoy3466.simpleitemedit.editor.EditorRegistry;
 import com.takoy3466.simpleitemedit.input.IInputHandler;
 import com.takoy3466.simpleitemedit.itemmodel.ItemModelRegistry;
+import com.takoy3466.simpleitemedit.language.LanguageManager;
 import com.takoy3466.simpleitemedit.session.EditingSessionManager;
 import com.takoy3466.simpleitemedit.util.EnchantLimitManager;
 import org.bukkit.plugin.Plugin;
@@ -17,8 +18,9 @@ public class SimpleItemEditContextImpl implements SimpleItemEditContext {
     private final IInputHandler inputHandler;
     private final ItemModelRegistry itemModelRegistry;
     private final EnchantLimitManager limitManager;
+    private final LanguageManager langManager;
 
-    public SimpleItemEditContextImpl(Plugin plugin, EditorRegistry editors, EditorGuiRegistry guiRegistry, EditingSessionManager sessions, IInputHandler inputHandler, ItemModelRegistry itemModelRegistry, EnchantLimitManager limitManager) {
+    public SimpleItemEditContextImpl(Plugin plugin, EditorRegistry editors, EditorGuiRegistry guiRegistry, EditingSessionManager sessions, IInputHandler inputHandler, ItemModelRegistry itemModelRegistry, EnchantLimitManager limitManager, LanguageManager langManager) {
         this.plugin = plugin;
         this.editors = editors;
         this.guiRegistry = guiRegistry;
@@ -26,6 +28,7 @@ public class SimpleItemEditContextImpl implements SimpleItemEditContext {
         this.inputHandler = inputHandler;
         this.itemModelRegistry = itemModelRegistry;
         this.limitManager = limitManager;
+        this.langManager = langManager;
     }
 
     @Override
@@ -61,5 +64,10 @@ public class SimpleItemEditContextImpl implements SimpleItemEditContext {
     @Override
     public EnchantLimitManager limitManager() {
         return limitManager;
+    }
+
+    @Override
+    public LanguageManager language() {
+        return langManager;
     }
 }

@@ -1,27 +1,13 @@
 package com.takoy3466.simpleitemedit.editor;
 
 import com.takoy3466.simpleitemedit.context.IEditContext;
-import com.takoy3466.simpleitemedit.util.EditorUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class GlowEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "glow";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Glow");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return EditorUtil.createIcon(Material.ENCHANTED_BOOK, "Glow");
+public class GlowEditor extends AbstractItemEditor {
+    public GlowEditor() {
+        super("glow", Material.ENCHANTED_BOOK, "Glow");
     }
 
     @Override

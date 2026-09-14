@@ -1,8 +1,8 @@
 name: SimpleItemEdit
-version: '1.2.0'
+version: '1.2.1'
 main: com.takoy3466.simpleitemedit.SimpleItemEdit
 
-api-version: '1.21'
+api-version: '26.2'
 
 author: takoyaki3466
 description: A simple and fun item customization plugin.

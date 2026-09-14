@@ -1,28 +1,22 @@
 package com.takoy3466.simpleitemedit.listener;
 
+import com.takoy3466.simpleitemedit.context.IEditContext;
 import com.takoy3466.simpleitemedit.context.SimpleItemEditContext;
 import com.takoy3466.simpleitemedit.editor.ColorEditor;
-import com.takoy3466.simpleitemedit.context.GuiEditContext;
-import com.takoy3466.simpleitemedit.context.IEditContext;
-import com.takoy3466.simpleitemedit.editor.IItemEditor;
-import com.takoy3466.simpleitemedit.gui.ColorGui;
 import com.takoy3466.simpleitemedit.gui.MainEditGui;
 import com.takoy3466.simpleitemedit.holder.ColorGuiHolder;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jspecify.annotations.NonNull;
 
-public class ColorGuiListener implements Listener {
-    private final SimpleItemEditContext context;
-
+public class ColorGuiListener extends AbstractListener<ColorGuiHolder, ColorEditor> {
     public ColorGuiListener(SimpleItemEditContext context) {
-        this.context = context;
+        super(context, "color");
     }
 
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
+    @Override
+    protected void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
@@ -38,14 +32,11 @@ public class ColorGuiListener implements Listener {
             return;
         }
 
-        IItemEditor editor = context.editors().get("color");
-
-        if (!(editor instanceof ColorEditor colorEditor)) {
+        if (!(getEditor() instanceof ColorEditor colorEditor)) {
             return;
         }
 
         NamedTextColor color = switch (slot) {
-
             case 27 -> NamedTextColor.WHITE;
             case 28 -> NamedTextColor.GRAY;
             case 29 -> NamedTextColor.DARK_GRAY;
@@ -62,31 +53,35 @@ public class ColorGuiListener implements Listener {
             case 40 -> NamedTextColor.DARK_BLUE;
             case 41 -> NamedTextColor.LIGHT_PURPLE;
             case 42 -> NamedTextColor.DARK_PURPLE;
-
             default -> null;
         };
 
         if (color != null) {
-            IEditContext editContext = createContext(player, holder);
-            colorEditor.setColor(editContext, color);
-            editContext.refresh();
+            setColor(player, holder, colorEditor, color);
             return;
         }
 
-        if (slot == 49) {
-            IEditContext editContext = createContext(player, holder);
-            colorEditor.reset(editContext);
-            return;
-        }
-
-        if (slot == 53) {
-            new MainEditGui(holder.session(), context.editors()).open(player);
+        switch (slot) {
+            case 49 -> reset(player, holder, colorEditor);
+            case 53 -> back(player, holder, colorEditor);
+            default -> {}
         }
     }
 
-    private IEditContext createContext(Player player, ColorGuiHolder holder) {
-        return new GuiEditContext(player, holder.session(), context.editors(),
-                () -> new ColorGui(context, holder.session()),
-                () -> new MainEditGui(holder.session(), context.editors()));
+    private void setColor(Player player, ColorGuiHolder holder, ColorEditor editor, NamedTextColor color) {
+        IEditContext editContext = createContext(player, holder);
+        editor.setColor(editContext, color);
+        editContext.refresh();
+    }
+
+    @Override
+    protected void reset(@NonNull Player player, @NonNull ColorGuiHolder holder, @NonNull ColorEditor editor) {
+        IEditContext editContext = createContext(player, holder);
+        editor.reset(editContext);
+    }
+
+    @Override
+    protected void back(@NonNull Player player, @NonNull ColorGuiHolder holder, @NonNull ColorEditor editor) {
+        new MainEditGui(holder.session(), context.editors()).open(player);
     }
 }

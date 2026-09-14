@@ -8,6 +8,7 @@ import com.takoy3466.simpleitemedit.editor.*;
 import com.takoy3466.simpleitemedit.editor.factory.*;
 import com.takoy3466.simpleitemedit.input.ChatInputHandler;
 import com.takoy3466.simpleitemedit.itemmodel.ItemModelRegistry;
+import com.takoy3466.simpleitemedit.language.LanguageManager;
 import com.takoy3466.simpleitemedit.listener.*;
 import com.takoy3466.simpleitemedit.session.EditSessionListener;
 import com.takoy3466.simpleitemedit.session.EditingSessionManager;
@@ -29,6 +30,7 @@ public final class SimpleItemEdit extends JavaPlugin {
     private SimpleItemEditContext context;
     private ItemModelRegistry itemModelRegistry;
     private EnchantLimitManager limitManager;
+    private LanguageManager langManager;
 
     @Override
     public void onEnable() {
@@ -61,10 +63,11 @@ public final class SimpleItemEdit extends JavaPlugin {
         itemModelRegistry = new ItemModelRegistry();
         itemModelRegistry.registerVanillaModels();
         itemModelRegistry.loadConfig(this);
+        langManager = new LanguageManager(this);
 
         limitManager = new EnchantLimitManager(this);
 
-        context = new SimpleItemEditContextImpl(this, editorRegistry, editorGuiRegistry, sessionManager, chatInputHandler, itemModelRegistry, limitManager);
+        context = new SimpleItemEditContextImpl(this, editorRegistry, editorGuiRegistry, sessionManager, chatInputHandler, itemModelRegistry, limitManager, langManager);
 
     }
 
@@ -119,7 +122,7 @@ public final class SimpleItemEdit extends JavaPlugin {
 
     private void registerCommands() {
 
-        SimpleEditCommand simpleEditCommand = new SimpleEditCommand(sessionManager, editorRegistry);
+        SimpleEditCommand simpleEditCommand = new SimpleEditCommand(sessionManager, editorRegistry, limitManager);
 
         SimpleAdminEditCommand simpleAdminEditCommand = new SimpleAdminEditCommand();
 

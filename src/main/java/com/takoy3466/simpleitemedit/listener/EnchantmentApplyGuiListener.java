@@ -144,16 +144,12 @@ public class EnchantmentApplyGuiListener implements Listener {
         ItemStack book = state.applyBook();
 
         if (EnchantBookUtil.isNotEnchantedBook(book)) {
-
-            player.sendMessage(Component.text("エンチャント本を入れてください。"));
-
+            player.sendMessage(context.language().component("message.enchantment.apply.no_book"));
             return;
         }
 
         if (EnchantBookUtil.hasNotSingleEnchantment(book)) {
-
             player.sendMessage(Component.text("エンチャントが1種類だけ付いた本を使用してください。"));
-
             return;
         }
 

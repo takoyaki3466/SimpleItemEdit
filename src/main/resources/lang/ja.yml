@@ -1,0 +1,41 @@
+gui:
+  main:
+    title: "アイテム編集"
+    apply: "適用"
+    reset: "リセット"
+    close: "閉じる"
+
+  enchantment:
+    apply:
+      title: "エンチャント付与"
+      button: "エンチャントを適用"
+      reset: "エンチャントをリセット"
+      back: "戻る"
+
+    merge:
+      title: "エンチャント本の合成"
+      button: "本を合成"
+      back: "戻る"
+
+message:
+  enchantment:
+    apply:
+      success: "エンチャントを適用しました。"
+      no_book: "エンチャント本を入れてください。"
+      invalid_book: "エンチャントが1種類だけ付いた本を使用してください。"
+      cannot_apply: "このエンチャント本は使用できません。"
+      level_limit: "このエンチャントはレベル {limit} までです。"
+
+    merge:
+      success: "エンチャント本を合成しました。"
+      invalid: "この2冊は合成できません。"
+
+  item:
+    applied: "アイテムを適用しました。"
+    reset: "アイテムをリセットしました。"
+
+command:
+  simple_edit:
+    no_permission: "このコマンドを使用する権限がありません。"
+    unknown: "不明なサブコマンドです。"
+    help: "使用可能なコマンドを表示します。"

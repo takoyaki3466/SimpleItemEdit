@@ -10,18 +10,16 @@ import com.takoy3466.simpleitemedit.holder.RgbColorGuiHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jspecify.annotations.NonNull;
 
-public class RgbColorGuiListener implements Listener {
-
-    private final SimpleItemEditContext context;
-
+public class RgbColorGuiListener extends AbstractListener<RgbColorGuiHolder, RgbColorEditor> {
     public RgbColorGuiListener(SimpleItemEditContext context) {
-        this.context = context;
+        super(context, "rgb_color");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
+    @Override
     public void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
@@ -32,8 +30,15 @@ public class RgbColorGuiListener implements Listener {
         }
 
         event.setCancelled(true);
-
         int slot = event.getRawSlot();
+
+        if (slot < 0 || slot >= event.getView().getTopInventory().getSize()) {
+            return;
+        }
+
+        if (!(getEditor() instanceof RgbColorEditor rgbColorEditor)) {
+            return;
+        }
 
         switch (slot) {
             case 28 -> holder.red(holder.red() - 10);
@@ -48,23 +53,29 @@ public class RgbColorGuiListener implements Listener {
             case 47 -> holder.blue(holder.blue() - 1);
             case 50 -> holder.blue(holder.blue() + 1);
             case 51 -> holder.blue(holder.blue() + 10);
-            case 53 -> {
-                new MainEditGui(holder.session(), context.editors()).open(player);
-                return;
-            }
+            case 53 -> back(player, holder, rgbColorEditor);
+            default -> {}
         }
 
-        applyColor(holder);
+        applyColor(holder, rgbColorEditor);
 
         new RgbColorGui(context, holder.session()).open(player);
     }
 
-    private void applyColor(RgbColorGuiHolder holder) {
-        if (!(context.editors().get("rgb_color") instanceof RgbColorEditor editor)) {
-            return;
-        }
-
+    private void applyColor(RgbColorGuiHolder holder, RgbColorEditor rgbColorEditor) {
         IEditContext editorContext = new GuiEditContext(holder.session().player(), holder.session(), context.editors(), () -> new RgbColorGui(context, holder.session()), () -> new MainEditGui(holder.session(), context.editors()));
-        editor.setColor(editorContext, holder.red(), holder.green(), holder.blue());
+        rgbColorEditor.setColor(editorContext, holder.red(), holder.green(), holder.blue());
     }
+
+    @Override
+    protected void reset(@NonNull Player player, @NonNull RgbColorGuiHolder holder, @NonNull RgbColorEditor editor) {
+        // リセットボタンなし
+    }
+
+    @Override
+    protected void back(@NonNull Player player, @NonNull RgbColorGuiHolder holder, @NonNull RgbColorEditor editor) {
+        new MainEditGui(holder.session(), context.editors()).open(player);
+    }
+
+
 }

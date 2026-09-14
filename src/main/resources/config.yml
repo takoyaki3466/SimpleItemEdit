@@ -13,6 +13,8 @@
 
 item-models: []
 
+language: ja
+
 # -1なら上限なし
 enchantment-limits:
   aqua_affinity: 10

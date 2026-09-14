@@ -1,29 +1,15 @@
 package com.takoy3466.simpleitemedit.editor;
 
 import com.takoy3466.simpleitemedit.context.IEditContext;
-import com.takoy3466.simpleitemedit.util.EditorUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.EquippableComponent;
 
-public class EquipmentSlotEditor implements IItemEditor {
-
-    @Override
-    public String id() {
-        return "equipment_slot";
-    }
-
-    @Override
-    public Component displayName() {
-        return Component.text("Equipment Slot");
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return EditorUtil.createIcon(Material.ARMOR_STAND, "Equipment Slot");
+public class EquipmentSlotEditor extends AbstractItemEditor {
+    public EquipmentSlotEditor(String id, Material iconMaterial, String text) {
+        super("equipment_slot", Material.ARMOR_STAND, "Equipment Slot");
     }
 
     public void setSlot(IEditContext context, EquipmentSlot slot) {
