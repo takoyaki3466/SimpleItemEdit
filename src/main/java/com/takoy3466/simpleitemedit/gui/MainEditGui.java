@@ -33,6 +33,8 @@ public class MainEditGui implements IGui {
     private void setup(MainEditHolder holder, Inventory inventory) {
         inventory.setItem(13, session.editingItem());
 
+        setEditor(holder, inventory, 25, "enchantment_split");
+
         setEditor(holder, inventory, 27, "name");
         setEditor(holder, inventory, 28, "color");
         setEditor(holder, inventory, 29, "style");
@@ -40,7 +42,6 @@ public class MainEditGui implements IGui {
         setEditor(holder, inventory, 31, "glow");
         setEditor(holder, inventory, 32, "equipment_slot");
         setEditor(holder, inventory, 33, "item_model");
-
         setEditor(holder, inventory, 34, "enchantment_apply");
 
         setEditor(holder, inventory, 37, "rgb_color");

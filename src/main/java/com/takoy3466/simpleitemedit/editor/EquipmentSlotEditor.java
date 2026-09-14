@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.EquippableComponent;
 
 public class EquipmentSlotEditor extends AbstractItemEditor {
-    public EquipmentSlotEditor(String id, Material iconMaterial, String text) {
+    public EquipmentSlotEditor() {
         super("equipment_slot", Material.ARMOR_STAND, "Equipment Slot");
     }
 

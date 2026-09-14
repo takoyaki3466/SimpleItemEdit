@@ -101,6 +101,9 @@ public final class SimpleItemEdit extends JavaPlugin {
 
         editorRegistry.register(new RgbColorEditor());
         editorGuiRegistry.register(new RgbColorGuiFactory(context));
+
+        editorRegistry.register(new EnchantmentSplitEditor());
+        editorGuiRegistry.register(new EnchantmentSplitGuiFactory(context));
     }
 
     private void registerListeners() {
@@ -115,6 +118,7 @@ public final class SimpleItemEdit extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RgbColorGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new EnchantmentApplyGuiListener(context), this);
         getServer().getPluginManager().registerEvents(new EnchantmentMergeGuiListener(context), this);
+        getServer().getPluginManager().registerEvents(new EnchantmentSplitGuiListener(context), this);
 
         getServer().getPluginManager().registerEvents(chatInputHandler, this);
         getServer().getPluginManager().registerEvents(new EditSessionListener(sessionManager, chatInputHandler), this);

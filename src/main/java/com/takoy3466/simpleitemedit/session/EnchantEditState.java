@@ -14,6 +14,10 @@ public class EnchantEditState {
     private ItemStack mergeSecond;
     private ItemStack mergeResult;
 
+    private ItemStack splitBook;
+
+    private final List<ItemStack> splitResults = new ArrayList<>();
+
     private final List<ItemStack> consumedBooks = new ArrayList<>();
 
     public ItemStack applyBook() {
@@ -125,5 +129,55 @@ public class EnchantEditState {
 
     private static boolean isEmpty(ItemStack item) {
         return item == null || item.getType().isAir() || item.getAmount() <= 0;
+    }
+
+    public ItemStack splitBook() {
+        return cloneOrNull(splitBook);
+    }
+
+    public void setSplitBook(ItemStack item) {
+        this.splitBook = cloneOrNull(item);
+    }
+
+    public List<ItemStack> splitResults() {
+        List<ItemStack> result = new ArrayList<>();
+
+        for (ItemStack item : splitResults) {
+            result.add(item.clone());
+        }
+
+        return result;
+    }
+
+    public void setSplitResults(List<ItemStack> results) {
+        splitResults.clear();
+
+        for (ItemStack item : results) {
+
+            if (item == null || item.getType().isAir()) {
+                continue;
+            }
+
+            splitResults.add(item.clone());
+        }
+    }
+
+    public void returnSplitItems(Player player) {
+        giveOrDrop(player, splitBook);
+
+        for (ItemStack result : splitResults) {
+            giveOrDrop(player, result);
+        }
+
+        splitBook = null;
+        splitResults.clear();
+    }
+
+    public void removeSplitResult(int index) {
+        if (index < 0 || index >= splitResults.size()) {
+            return;
+        }
+
+        splitResults.remove(index);
     }
 }

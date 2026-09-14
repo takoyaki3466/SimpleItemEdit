@@ -7,6 +7,7 @@ import com.takoy3466.simpleitemedit.gui.MainEditGui;
 import com.takoy3466.simpleitemedit.holder.ColorGuiHolder;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jspecify.annotations.NonNull;
 
@@ -15,6 +16,7 @@ public class ColorGuiListener extends AbstractListener<ColorGuiHolder, ColorEdit
         super(context, "color");
     }
 
+    @EventHandler
     @Override
     protected void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) {
